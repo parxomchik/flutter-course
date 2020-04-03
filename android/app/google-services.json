@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "163249648391",
+    "firebase_url": "https://parxomchik-flutter.firebaseio.com",
+    "project_id": "parxomchik-flutter",
+    "storage_bucket": "parxomchik-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163249648391:android:cb57d60019a7f9227f8ba2",
+        "android_client_info": {
+          "package_name": "com.parxomchik.flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163249648391-ngebc03l16vevd6m4jghpoc69fm23imq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parxomchik.flutter",
+            "certificate_hash": "01693e8bf870e1fe60f9dbd54c3d71bf181374cb"
+          }
+        },
+        {
+          "client_id": "163249648391-i8ui21fb1pph0cr7p2e4p7kaqvlu0okv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsnPptjY1EG8HMJ9CxYiWNiUiv5zCp8gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163249648391-i8ui21fb1pph0cr7p2e4p7kaqvlu0okv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "163249648391-kgv04n2vm5n8rolnrdvainianl17jp2n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.parxomchik.flutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
