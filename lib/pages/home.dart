@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
     pageController = PageController();
     googleSignIn.onCurrentUserChanged.listen((account) => {
       handleSignin(account)
-    }, onError: (err) {
+    }, onError: (err) { 
       print(err);
     });
   // Reauntheficate user when app is opened
@@ -40,33 +40,6 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
   
-
-  login() {
-    googleSignIn.signIn();
-  }
-
-  logout() {
-    googleSignIn.signOut();
-  }
-
-  onPageChanged(int pageIndex) {
-    setState(() {
-      this.pageIndex = pageIndex;
-    });
-  }
-
-  onTap(int pageIndex) {
-    pageController.jumpToPage(pageIndex);
-  }
-
-  handleSignin(GoogleSignInAccount account) {
-      setState(() => {
-        print(account),
-        isAuth = account == null ? false : true
-      });
-  }
-
-
   Widget buildAuthScreen() {
     return Scaffold(
       body: PageView(
@@ -95,6 +68,33 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+
+  login() {
+    googleSignIn.signIn();
+  }
+
+  logout() {
+    googleSignIn.signOut();
+  }
+
+  onPageChanged(int pageIndex) {
+    setState(() {
+      this.pageIndex = pageIndex;
+    });
+  }
+
+  handleSignin(GoogleSignInAccount account) {
+      setState(() => {
+        print(account),
+        isAuth = account == null ? false : true
+      });
+  }
+
+  onTap(int pageIndex) {
+    pageController.jumpToPage(pageIndex);
+  }
+
 
   Scaffold buildUnAuthScreen() {
     return Scaffold(
