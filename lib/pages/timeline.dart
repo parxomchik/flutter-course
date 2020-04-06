@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttershare/widgets/header.dart';
 
-final userRef = Firestore.instance.collection('users');
+final usersRef = Firestore.instance.collection('users');
 
 class Timeline extends StatefulWidget {
   @override
@@ -10,11 +10,6 @@ class Timeline extends StatefulWidget {
 }
 
 class _TimelineState extends State<Timeline> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(context) {
     return Scaffold(

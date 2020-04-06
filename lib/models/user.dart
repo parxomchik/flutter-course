@@ -8,7 +8,6 @@ class User {
   final String displayName;
   final String bio;
 
-
   User({
     this.id,
     this.username,
