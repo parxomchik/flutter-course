@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttershare/pages/activity_feed.dart';
+import 'package:fluttershare/pages/create_account.dart';
 import 'package:fluttershare/pages/profile.dart';
 import 'package:fluttershare/pages/search.dart';
 import 'package:fluttershare/pages/timeline.dart';
@@ -8,6 +10,8 @@ import 'package:fluttershare/pages/upload.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
+final usersRef = Firestore.instance.collection('users');
+final DateTime timestamp = DateTime.now();
 
 class Home extends StatefulWidget {
   @override
@@ -15,7 +19,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool isAuth = false;
+  Future<dynamic> isAuth;
   PageController pageController;
   int pageIndex = 0;
 
@@ -44,7 +48,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         children: <Widget>[
-          Timeline(),
+          RaisedButton(
+            child: Text('Logout'),
+            onPressed: logout()
+          ),
+          // Timeline(),
           ActivityFeed(),
           Upload(),
           Search(),
@@ -86,9 +94,34 @@ class _HomeState extends State<Home> {
 
   handleSignin(GoogleSignInAccount account) {
       setState(() => {
-        print(account),
-        isAuth = account == null ? false : true
+        isAuth = account == null ? false : creatUserInFirestore()
       });
+  }
+
+  creatUserInFirestore() async {
+    // if user exist in users colldection in the database by id
+    final GoogleSignInAccount user = googleSignIn.currentUser;
+    DocumentSnapshot doc;
+    if (user != null) {
+      doc = await usersRef.document(user.id).get();
+    }
+
+
+    if(!doc.exists) {
+    // if user doesn't exist, then we want to take them to the create account page 
+      final username = await Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAccount()));
+
+    // get username from create account, use it to make new user document in the users collection
+      usersRef.document(user.id).setData({
+        'id': user.id,
+        'username': username,
+        'photoUrl': user.photoUrl,
+        'email': user.email,
+        'displayName': user.displayName,
+        'bio': '',
+        'timestamp': timestamp,
+      });
+    }
   }
 
   onTap(int pageIndex) {
@@ -146,6 +179,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return isAuth ? buildAuthScreen() : buildUnAuthScreen();
+    return isAuth != null ? buildAuthScreen() : buildUnAuthScreen();
   }
 }
