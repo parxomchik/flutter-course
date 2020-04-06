@@ -11,36 +11,40 @@ class _SearchState extends State<Search> {
     return AppBar(
       backgroundColor: Colors.white,
       title: TextFormField(
-        decoration:  InputDecoration(
-          hintText: 'Search for a user ...',
-          filled: true,
-          prefixIcon: Icon(
-            Icons.account_box,
-            size: 28.0,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () => print('cleared'),
-          )
-        ),
+        decoration: InputDecoration(
+            hintText: 'Search for a user ...',
+            filled: true,
+            prefixIcon: Icon(
+              Icons.account_box,
+              size: 28.0,
+            ),
+            suffixIcon: IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () => print('cleared'),
+            )),
       ),
     );
   }
 
   buildNoContent() {
+    final Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
       child: Center(
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            SvgPicture.asset('assets/images/search.svg', height: 300.0),
-            Text('Find Users', textAlign: TextAlign.center, style: 
-            TextStyle(
-              color: Colors.white,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.w600,
-              fontSize: 60.0,
-            ))
+            SvgPicture.asset(
+              'assets/images/search.svg', 
+              height: orientation == Orientation.portrait ? 300.0 : 200.0,
+            ),
+            Text('Find Users',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 60.0,
+                ))
           ],
         ),
       ),
