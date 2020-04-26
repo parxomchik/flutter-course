@@ -117,6 +117,9 @@ class _UploadState extends State<Upload> {
   }
 
   handleSubmit() async {
+    if(isUploading) {
+      return;
+    }
     setState(() {
       isUploading = true;
     });
@@ -128,6 +131,12 @@ class _UploadState extends State<Upload> {
       location: locationController.text,
       description: captionController.text
     );
+    captionController.clear();
+    locationController.clear();
+    setState(() {
+      file = null;
+      isUploading = false;
+    });
   }
 
   createPostInFireStore({ String mediaUrl, String location, String description }) {
@@ -139,7 +148,11 @@ class _UploadState extends State<Upload> {
         'postId': postId,
         'ownerId': widget.currentUser.id,
         'username': widget.currentUser.username,
-        
+        'mediaUrl': mediaUrl,
+        'description': description,
+        'location': location,
+        'timestamp': timestamp,
+        'likes': {},
       });
   }
 
@@ -163,7 +176,7 @@ class _UploadState extends State<Upload> {
       title: Text('Caption Post', style: TextStyle(color: Colors.black)),
       actions: <Widget>[
         FlatButton(
-            onPressed: () => isUploading ? null : () => handleSubmit(),
+            onPressed: () => handleSubmit(),
             child: Text(
               'Post',
               style: TextStyle(
